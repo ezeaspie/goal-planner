@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ProductItem extends Component {
+class GoalItem extends Component {
 
     constructor(props) {
         super(props);
@@ -12,6 +12,7 @@ class ProductItem extends Component {
         this.onDelete = this.onDelete.bind(this);
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onComplete = this.onComplete.bind(this);
     }
 
     onDelete() {
@@ -24,11 +25,16 @@ class ProductItem extends Component {
 
     onEditSubmit (e) {
         e.preventDefault();
-        this.props.onEditSubmit(this.nameInput.value, this.priceInput.value, this.props.name);
+        this.props.onEditSubmit(this.nameInput.value, this.props.name);
         this.setState({isEdit : false});
     }
+
+    onComplete(e) {
+        this.props.toggleComplete(this.props.name);
+    }
+
     render() {
-        const { name, price } = this.props;
+        const { name } = this.props;
 
         return (
 
@@ -38,14 +44,13 @@ class ProductItem extends Component {
                         ? (
                             <form onSubmit={this.onEditSubmit}>
                                 <input type="text" defaultValue = { name } placeholder="Product Name..." ref={nameInput => this.nameInput = nameInput} />
-                                <input type="number" defaultValue = { price } placeholder="Price..." ref={priceInput => this.priceInput = priceInput} />
                                 <button>Save</button>
                             </form>
                         ) 
                         : (
                             <div>
                             <h2> { name } </h2>
-                             <h3> {price} </h3>
+                            <input type="checkbox" checked={this.props.isComplete} onChange={this.onComplete} ref={checkedInput => this.checkedInput = checkedInput} /> <span>Mark as Complete</span>
                             <button onClick={this.onEdit}> Edit </button>
                             <button onClick={this.onDelete}> Delete </button>
                             </div>
@@ -57,4 +62,4 @@ class ProductItem extends Component {
     }
 }
 
-export default ProductItem;
+export default GoalItem;

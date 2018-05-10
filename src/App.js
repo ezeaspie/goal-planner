@@ -1,107 +1,190 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import MyComponent from './myComponent';
-import ProductItem from './product-item';
-import AddItem from './AddItem';
+import Day from './Day';
+import AddNewDay from './AddNewDay';
 
-const products = [
-  {
-    name: "Morning Moon Face Wash",
-    price: 80,
-  },
-  {
-    name: "Plateau Chic Coffee Container",
-    price: 10,
-  },
-  {
-    name: "NSPD Playset",
-    price: 30,
-  },
-];
+const days = [
+    {
+        goals: [
+            {
+                name: "Wash Face",
+                isComplete: false,
+            },
+            {
+                name: "Buy Eggs from store",
+                isComplete: false,
+            },
+            {
+                name: "Run for 30 minutes",
+                isComplete: false,
+            },
+        ],
+        thoughts: "",
+        mood: "",
+    },
+    {
+        goals: [
+            {
+                name: "Wash Feet",
+                isComplete: false,
+            },
+            {
+                name: "Buy Milk from store",
+                isComplete: false,
+            },
+            {
+                name: "Run for 30000 minutes",
+                isComplete: false,
+            },
+        ],
+        thoughts: "",
+        mood: "",
+    },
+]
+;
 
-localStorage.setItem('products' , JSON.stringify(products) );
+
+if(localStorage.getItem('days') === null) {
+    localStorage.setItem('days', JSON.stringify(days));
+    localStorage.setItem('view', 0);
+}
+else {
+    console.log("local has something");
+}
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      products: JSON.parse(localStorage.getItem('products')),
-    }
-  }
-
-  componentWillMount() {
-    const products = this.getProducts();
-
-    this.setState({ products });
-
-    this.onDelete = this.onDelete.bind(this);
-    this.onAdd = this.onAdd.bind(this);
-    this.onEditSubmit = this.onEditSubmit.bind(this);
-
-  }
-
-  getProducts = () => {
-    return this.state.products;
-  }
-
-  onDelete = (name) => {
-    console.log(name);
-    const products = this.getProducts();
-
-    const filterProducts = products.filter(product => {
-      return product.name !== name;
-    });
-
-    console.log(filterProducts);
-
-    this.setState({ products : filterProducts })
-  }
-
-  onAdd = (name,price) => {
-    console.log(name,price);
-    const products = this.getProducts();
-
-    products.push({ name, price });
-
-    this.setState({ products });
-  }
-
-  onEditSubmit = (name,price, originalName) => {
-    console.log(name,price);
-    let products = this.getProducts();
-
-    products.map(product => {
-      if(product.name === originalName) {
-        product.name = name;
-        product.price = price;
-      }
-      return product;
-    });
-
-    this.setState({ products });
-  }
-
-  render() {
-    
-    return (
-      <div className="App">
-        <h1>Product Manager</h1>
-        <AddItem 
-          onAdd = {this.onAdd}
-          />
-        {
-          this.state.products.map(item => {
-            return (
-              <ProductItem key={item.name} {...item} onDelete = {this.onDelete} onEditSubmit = {this.onEditSubmit}/>
-            );
-          })
+        this.state = {
+            days: JSON.parse(localStorage.getItem('days')),
+            currentDay: 0,
+            currentView: Number(localStorage.getItem('view')),
         }
-      </div>
-    );
-  }
+
+        this.onUpdateGoals = this.onUpdateGoals.bind(this);
+        this.onUpdateThoughts = this.onUpdateThoughts.bind(this);
+        this.onUpdateMood = this.onUpdateMood.bind(this);
+        this.addDay = this.addDay.bind(this);
+        this.forward = this.forward.bind(this);
+        this.back = this.back.bind(this);
+        this.deleteDay = this.deleteDay.bind(this);
+    }
+
+    componentWillMount() {
+        const days = this.getDays();
+
+        this.setState({ days });
+    }
+
+    getDays = () => {
+        return this.state.days;
+    }
+
+    updateMainState = (id, object) => {
+        let updatedDaysObject = this.state.days;
+
+        for (let i = 0; i < updatedDaysObject.length; i++) {
+            if (i === id) {
+                updatedDaysObject[i] = object;
+                console.log(updatedDaysObject[i]);
+                break;
+            }
+        }
+        this.setState({ days: updatedDaysObject });
+
+        localStorage.setItem('days', JSON.stringify(this.state.days));
+
+    }
+
+    onUpdateGoals = (day, newGoals) => {
+        let newObj = {...this.state.days[day], goals: newGoals};
+
+        this.updateMainState(day,newObj);
+    }
+
+    onUpdateThoughts = (day, newThoughts) => {
+        let newObj = {...this.state.days[day], thoughts: newThoughts };
+
+        this.updateMainState(day,newObj);
+    }
+
+    onUpdateMood = (day, newMood) => {
+        let newObj = {...this.state.days[day], mood : newMood };
+
+        this.updateMainState(day,newObj);
+    }
+
+    addDay = () => {
+        let newObj = {
+            goals: [],
+            thoughts: "",
+            mood: "",
+        }
+        let mutableState = this.state.days;
+
+        mutableState.push(newObj);
+
+        this.setState({days: mutableState});
+
+        localStorage.setItem('days', JSON.stringify(this.state.days));
+
+        this.setState({ currentView: this.state.days.length-1 });
+
+    }
+
+    back() {
+        if (this.state.currentView - 1 === -1) {
+            return false;
+        }
+        this.setState({ currentView: this.state.currentView - 1 }, () => {
+            localStorage.setItem('view', this.state.currentView);
+        });
+    }
+
+    forward () {
+        if (this.state.currentView + 1 > this.state.days.length-1) {
+            return false;
+        }
+        this.setState({ currentView: this.state.currentView + 1 }, () => {
+            localStorage.setItem('view', this.state.currentView);
+        });
+    }
+
+    deleteDay = () => {
+        let dayArray = this.getDays();
+        if(this.state.days.length-1 === 0){
+            return false;
+        }
+        dayArray.splice(this.state.currentView, 1);
+
+        this.setState({days: dayArray});
+
+        localStorage.setItem('days', JSON.stringify(this.state.days));
+
+    }
+
+    render() {
+
+        return (
+            <div>
+                <AddNewDay 
+                currentDay = {this.state.currentView}
+                addDay = {this.addDay}
+                totalDays = {this.state.days.length} 
+                back = {this.back}
+                forward = {this.forward} 
+                deleteDay = {this.deleteDay} />
+                <Day 
+                mainObject={this.state.days[this.state.currentView]}
+                currentView={this.state.currentView}
+                onUpdateGoals={this.onUpdateGoals}
+                onUpdateThoughts={this.onUpdateThoughts} 
+                onUpdateMood={this.onUpdateMood} />
+            </div>
+        );
+    }
 }
 
 export default App;
