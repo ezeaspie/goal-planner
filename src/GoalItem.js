@@ -38,26 +38,26 @@ class GoalItem extends Component {
 
         return (
 
-            <div key={name}>
+            <li className="goal" key={name}>
                 {
                     this.state.isEdit
                         ? (
                             <form onSubmit={this.onEditSubmit}>
                                 <input type="text" defaultValue = { name } placeholder="Product Name..." ref={nameInput => this.nameInput = nameInput} />
-                                <button>Save</button>
+                                <button></button>
                             </form>
                         ) 
                         : (
                             <div>
                             <h2> { name } </h2>
                             <input type="checkbox" checked={this.props.isComplete} onChange={this.onComplete} ref={checkedInput => this.checkedInput = checkedInput} /> <span>Mark as Complete</span>
-                            <button onClick={this.onEdit}> Edit </button>
-                            <button onClick={this.onDelete}> Delete </button>
+                            <button className = "goal-edit" onClick={this.onEdit}></button>
+                            <button className="goal-delete" onClick={this.onDelete}></button>
                             </div>
                         )
                 }
                 
-            </div>
+            </li>
         );
     }
 }

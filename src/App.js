@@ -168,7 +168,7 @@ class App extends Component {
     render() {
 
         return (
-            <div>
+            <div className="App">
                 <AddNewDay 
                 currentDay = {this.state.currentView}
                 addDay = {this.addDay}

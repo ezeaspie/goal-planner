@@ -12,14 +12,26 @@ class MoodForm extends Component {
     render() {
 
         return (
-            <div>
+            <section className="mood">
                 <h3>Moods</h3>
-                <input type="radio" name="mood" value="Terrible" onChange={this.handleChange} /><label>Terrible</label>
-                <input type="radio" name="mood" value="Bad" onChange={this.handleChange} /><label>Bad</label>
-                <input type="radio" name="mood" value="Okay" onChange={this.handleChange} /><label>Okay</label>
-                <input type="radio" name="mood" value="Good" onChange={this.handleChange} /><label>Good</label>
-                <input type="radio" name="mood" value="Excellent" onChange={this.handleChange} /><label>Excellent</label>
-            </div>
+                <div className="selection">
+                <input type="radio" name="mood" value="Terrible" onChange={this.handleChange} /><label className="ter"></label>
+                <input type="radio" name="mood" value="Bad" onChange={this.handleChange} /><label className="bad"></label>
+                <input  type="radio" name="mood" value="Okay" onChange={this.handleChange} /><label className="ok"></label>
+                <input  type="radio" name="mood" value="Good" onChange={this.handleChange} /><label className="good"></label>
+                <input  type="radio" name="mood" value="Excellent" onChange={this.handleChange} /><label className="excellent"></label>
+                </div>
+                    {
+                        this.props.mood === ""
+                            ? (
+                                <h3>You haven't chosen a mood</h3>
+                            )
+                            : (
+                                <h3>Your day was {this.props.mood}</h3>
+
+                            )
+                    }
+            </section>
         );
     }
 }

@@ -41,7 +41,9 @@ class Day extends Component {
 
     console.log(filtergoals);
 
-    this.setState({ goals : filtergoals })
+    this.setState({ goals : filtergoals });
+    this.props.onUpdateGoals(this.props.currentView, filtergoals);
+
   }
 
   onAdd = (name) => {
@@ -100,21 +102,28 @@ class Day extends Component {
   render() {
     
     return (
-      <div className="App">
-        <h1>Today's Goals</h1>
-        <MoodForm onMoodSelect = {this.onMoodSelect}/>
-
-        <AddGoal 
-          onAdd = {this.onAdd}
+      <div className="main">
+        <h2>Today's Goals</h2>
+        <h3>Day {this.props.currentView + 1}</h3>
+        <section className="goal-sec">
+          <AddGoal
+            onAdd={this.onAdd}
           />
+          <ul className="goalList">
+            {
+              this.props.mainObject.goals.map(goal => {
+                return (
+                  <GoalItem key={goal.name} {...goal} toggleComplete={this.toggleComplete} onDelete={this.onDelete} onEditSubmit={this.onEditSubmit} />
+                );
+              })
+            }
+          </ul>
+        </section>
+        
         <ThoughtLogger thoughts = {this.props.mainObject.thoughts} onThoughtsChange = {this.onThoughtsChange} />
-        {
-          this.props.mainObject.goals.map(goal => {
-            return (
-              <GoalItem key={goal.name} {...goal} toggleComplete = {this.toggleComplete} onDelete = {this.onDelete} onEditSubmit = {this.onEditSubmit}/>
-            );
-          })
-        }
+        
+        <MoodForm onMoodSelect={this.onMoodSelect} mood = {this.props.mainObject.mood}/>
+
       </div>
     );
   }

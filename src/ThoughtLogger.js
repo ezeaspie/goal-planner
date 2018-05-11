@@ -15,13 +15,14 @@ class ThoughtLogger extends Component {
 
     render() {
         return (
-            <div className="notes">
+            <section className="notes">
+                <h3>Notes and Thoughts</h3>
                <textarea 
                placeholder="Write down your notes/thoughts here..." 
                value={this.props.thoughts}
                onChange = {this.onChange}
                />
-            </div>
+            </section>
         );
     }
 }

@@ -15,10 +15,12 @@ class AddGoal extends Component {
     render() {
        
         return (
-            <form onSubmit = {this.onSubmit}>
-                <h3>Add Goal</h3>
+            <form className="add-goal" onSubmit = {this.onSubmit}>
+                <h3>Add a Goal</h3>
+                <div className="input-line">
                 <input type="text" placeholder="New Goal..." ref= {nameInput => this.nameInput = nameInput}/>
-                <button>Add Goal</button>
+                <button></button>
+                </div>
             </form>
         );
     }

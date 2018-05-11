@@ -1,28 +1,311 @@
-.App {
-  text-align: center;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+html,
+header,
+.mood{
+	background: url(/static/media/ep_naturalwhite.110a9bd2.png);
+}
+header {
+	display:-ms-flexbox;
+	display:flex;
+	-ms-flex-pack: justify;
+	    justify-content: space-around;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	padding: 1em 0;
+	-webkit-box-shadow: 0 3px 10px #d1d1d1;
+	        box-shadow: 0 3px 10px #d1d1d1;
+	height:3em;
+	position:fixed;
+	top:0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+header button {
+	height:4em;
+	width:4em;
 }
 
-.App-title {
-  font-size: 1.5em;
+.add,
+.add-goal button {
+	background: url(/static/media/plus.6ab4e5f7.svg);
+	background-size: 100% 100%;
 }
 
-.App-intro {
-  font-size: large;
+.delete,
+.goal-delete {
+	background: url(/static/media/trash.d7bec4e6.svg);
+	background-size: 100% 100%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.back {
+	background: url(/static/media/next.613a9749.svg);
+	-webkit-transform: rotate(180deg);
+	    -ms-transform: rotate(180deg);
+	        transform: rotate(180deg);
+	background-size: 100% 100%;
+
+}
+
+.forward {
+	background: url(/static/media/next.613a9749.svg);
+	background-size: 100% 100%;
+}
+
+.goal-edit {
+	background: url(/static/media/pencil.ecfeebcf.svg);
+	background-size: 100% 100%;	
+}
+
+h1 {
+	font-size:2em;
+	font-family: bold;
+	font-family: 'Handlee';
+}
+
+.main {
+	margin-top: 6em;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	    flex-direction: column;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+}
+
+h2{
+	font-size:2em;
+	font-family: 'Handlee';
+	padding:.5em;
+}
+
+h3 {
+	font-size:1.5em;
+	font-family: 'Roboto';
+	margin: .5em 0;
+}
+
+button {
+	opacity: .7;
+	height:4em;
+	width:4em;
+	border:none;
+	-webkit-transition:ease-in .5s opacity;
+	-o-transition:ease-in .5s opacity;
+	transition:ease-in .5s opacity;
+}
+
+button:hover {
+	opacity: 1;
+	cursor: pointer;
+	-webkit-transition:ease .5s opacity;
+	-o-transition:ease .5s opacity;
+	transition:ease .5s opacity;
+}
+
+.main button {
+	width:3em;
+	height: 3em;
+}
+
+.input-line {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	-ms-flex-pack: center;
+	    justify-content: center;
+}
+.add-goal{
+	text-align: center;
+	font-family: 'Roboto';
+	background: url(/static/media/lined_paper.5f7a8173.png);
+	padding: 1em;
+	-webkit-box-shadow: 0px 5px 8px #d3d3d3, inset 0 0 0 1000px rgba(100,200,0,.2);
+	        box-shadow: 0px 5px 8px #d3d3d3, inset 0 0 0 1000px rgba(100,200,0,.2);
+}
+
+.add-goal input,
+.goal input {
+	border:none;
+	border-bottom: dashed 2px #000;
+	background: rgba(0,0,0,0);
+	font-family: 'Handlee';
+	font-size:1.3em;
+	margin: 0 1em;
+}
+
+.goalList{
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	-ms-flex-pack: distribute;
+	    justify-content: space-around;
+}
+
+.goal {
+	background: url(/static/media/lined_paper.5f7a8173.png);
+	-webkit-box-shadow: inset 0 0 0 1000px rgba(255,255,0,.2), 0px 5px 8px #d3d3d3;
+	        box-shadow: inset 0 0 0 1000px rgba(255,255,0,.2), 0px 5px 8px #d3d3d3;
+	margin: 1em .5em;
+	padding:.5em;
+}
+
+.goal form {
+	display: -ms-flexbox;
+	display: flex;
+	width:100%;
+	height: 100%;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+}
+
+.goal form button {
+	background: url(/static/media/checkmark.797540ec.svg);
+	background-size:100% 100%;
+}
+
+.goal h2 {
+	font-size:1.5em;
+}
+
+.notes{
+	width: 90%;
+	margin: 0 auto;
+	background: rgba(255,150,50,.7);
+	-webkit-box-shadow: 0px 5px 8px #d3d3d3;
+	        box-shadow: 0px 5px 8px #d3d3d3;
+}
+
+.notes h3 {
+	text-align: center;
+	font-size:1.5em;
+	font-family: 'Roboto';
+	padding: .5em;
+}
+
+textarea {
+	width: 100%;
+	height:250px;
+	font-family: 'Handlee';
+	font-size:1.3em;
+	background: url(/static/media/lined_paper.5f7a8173.png);
+	border: none;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 1em;
+}
+
+.ter {
+	background:url(/static/media/dead.f393531f.svg);
+	background-size: 100% 100%;
+}
+
+.bad {
+	background:url(/static/media/sad-face.754f0c71.svg);
+	background-size: 100% 100%;
+}
+
+.ok {
+	background:url(/static/media/serious-face.2f212112.svg);
+	background-size: 100% 100%;
+}
+
+.good {
+	background:url(/static/media/smile.33211a17.svg);
+	background-size: 100% 100%;
+}
+
+.excellent {
+	background:url(/static/media/supersmile.cf9d5a6a.svg);
+	background-size: 100% 100%;
+}
+
+.mood {
+	margin: 1em 0;
+	-webkit-box-shadow: inset 0 0 0 1000px rgba(255,155,100,.4), 0px 5px 8px #d3d3d3;
+	        box-shadow: inset 0 0 0 1000px rgba(255,155,100,.4), 0px 5px 8px #d3d3d3;
+	padding: 1em;
+}
+
+.mood label {
+	display: inline-block;
+	height: 4em;
+	width:4em;
+}
+
+.mood h3 {
+	font-size:1.5em;
+	margin-bottom:.5em;
+	text-align: center;
+	font-family: 'Roboto';
+}
+.mood h3:last-of-type {
+	margin-top: .5em;
+	font-size:1.8em;
+	font-family: 'Handlee';
+}
+
+.main {
+	width:95%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.goal-sec {
+	width: 100%;
+	margin-bottom: 1em;
 }

@@ -27,13 +27,13 @@ class AddNewDay extends Component {
 
     render() {
         return (
-            <div>
-                <h3>Current Day = {this.props.currentDay}</h3>
-                <button onClick = { this.handleNewDay }>Add New Day</button>
-                <button onClick = { this.handleBack }> Back </button>
-                <button onClick={ this.handleForward }> Forward </button>   
-                <button onClick={ this.handleDelete }> Delete </button>             
-            </div>
+            <header>
+                <h1>Goal Planner</h1>
+                <button className="add" onClick = { this.handleNewDay }></button>
+                <button className="back" onClick = { this.handleBack }></button>
+                <button className="forward" onClick={ this.handleForward }></button>   
+                <button className="delete" onClick={ this.handleDelete }></button>             
+            </header>
         );
     }
 }
